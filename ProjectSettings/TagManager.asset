@@ -8,6 +8,8 @@ TagManager:
   - PlayerProjectileHolder
   - EnemyProjectileHolder
   - Enemy
+  - Meteor
+  - PlayerHealth
   layers:
   - Default
   - TransparentFX
@@ -48,6 +50,15 @@ TagManager:
   - name: Enemy
     uniqueID: 310016789
     locked: 0
+  - name: Meteor
+    uniqueID: 2153445159
+    locked: 0
   - name: Player
     uniqueID: 980331779
+    locked: 0
+  - name: Projectile
+    uniqueID: 2868773259
+    locked: 0
+  - name: Health
+    uniqueID: 3708800945
     locked: 0

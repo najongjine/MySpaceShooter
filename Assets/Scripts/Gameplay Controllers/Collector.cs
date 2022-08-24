@@ -10,5 +10,9 @@ public class Collector : MonoBehaviour
         {
             collision.gameObject.SetActive(false);
         }
+        if (collision.gameObject.tag == TagManager.METEOR_TAG || collision.gameObject.tag == TagManager.COLLECTABLE_TAG)
+        {
+            Destroy(collision.gameObject);
+        }
     }
 }

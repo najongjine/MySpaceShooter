@@ -34,6 +34,7 @@ public class WeaponManagerPool : MonoBehaviour
         if (isEnemy)
         {
             projectileHolder = GameObject.FindWithTag(TagManager.ENEMY_PROJECTILE_HOLDER_TAG);
+            ResetShootingTimer();
         }
         else
         {
@@ -97,7 +98,7 @@ public class WeaponManagerPool : MonoBehaviour
     }
     void ResetShootingTimer()
     {
-        canShoot = true;
+        canShoot = false;
         if (isEnemy)
         {
             shootTimer = Time.time + UnityEngine.Random.Range(shootWaitTime,(shootWaitTime+1f));
@@ -110,6 +111,12 @@ public class WeaponManagerPool : MonoBehaviour
     }
     void HandleEnemyShooting()
     {
+        if (!isEnemy || !canShoot)
+        {
+            return;
+        }
+        ResetShootingTimer();
+        GetObjectFromPoolOrSpawnANewOne();
 
     }
 

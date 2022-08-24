@@ -38,4 +38,19 @@ public class Projectile : MonoBehaviour
     {
         transform.Translate(0,speed*Time.deltaTime,0);    
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == TagManager.PLAYER_TAG)
+        {
+            collision?.GetComponent<PlayerHealth>()?.TakeDamage(projectileDamage);
+        }
+        if (collision.gameObject.tag == TagManager.ENEMY_TAG || collision.gameObject.tag == TagManager.METEOR_TAG)
+        {
+            collision?.GetComponent<EnemyHealth>()?.TakeDamage(projectileDamage,0f);
+        }
+        if (!(collision.gameObject.tag == TagManager.UNTAGGED_TAG) && !(collision.gameObject.tag == TagManager.COLLECTABLE_TAG) )
+        {
+            gameObject.SetActive(false);
+        }
+    }
 }
