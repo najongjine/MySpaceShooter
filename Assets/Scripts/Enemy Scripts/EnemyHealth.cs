@@ -29,7 +29,10 @@ public class EnemyHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        var device_uid=SystemInfo.deviceUniqueIdentifier;
+        Debug.Log($"## device uid: {device_uid}");
+        var d_platform = Application.platform;
+        Debug.Log($"## platform: {d_platform.ToString()}");
     }
 
     // Update is called once per frame
