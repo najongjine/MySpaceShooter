@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - Meteor
   - PlayerHealth
+  - Collectable
   layers:
   - Default
   - TransparentFX

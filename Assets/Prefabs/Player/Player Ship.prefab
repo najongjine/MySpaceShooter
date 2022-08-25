@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 1929996048}
   - component: {fileID: 1929996049}
   - component: {fileID: 1929996050}
+  - component: {fileID: 912691578}
   m_Layer: 0
   m_Name: Weapons
   m_TagString: Untagged
@@ -200,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acf35bc4071fbca49b6506dfad5be2d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 6033425600711553857, guid: 099ba04ca4b52b446bfdd041140d77cb, type: 3}
+  projectile: {fileID: 8030240331777309082, guid: fb283deb5f4dc2c459475a89c2c8df93, type: 3}
   keyToPressToShoot: 106
   projectileSpawnPoint: {fileID: 856849602}
   shootWaitTime: 0.2
@@ -212,12 +213,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1929996043}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acf35bc4071fbca49b6506dfad5be2d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 275111334538533131, guid: 795a4e186dadfd242bd7581f3cc66474, type: 3}
+  projectile: {fileID: 6033425600711553857, guid: 099ba04ca4b52b446bfdd041140d77cb, type: 3}
   keyToPressToShoot: 107
   projectileSpawnPoint: {fileID: 856849602}
   shootWaitTime: 0.2
@@ -229,15 +230,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1929996043}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acf35bc4071fbca49b6506dfad5be2d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 8030240331777309082, guid: fb283deb5f4dc2c459475a89c2c8df93, type: 3}
+  projectile: {fileID: 275111334538533131, guid: 795a4e186dadfd242bd7581f3cc66474, type: 3}
   keyToPressToShoot: 108
   projectileSpawnPoint: {fileID: 856849602}
-  shootWaitTime: 0.1
+  shootWaitTime: 0.2
   isEnemy: 0
 --- !u!114 &1929996049
 MonoBehaviour:
@@ -246,7 +247,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1929996043}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acf35bc4071fbca49b6506dfad5be2d6, type: 3}
   m_Name: 
@@ -263,7 +264,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1929996043}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acf35bc4071fbca49b6506dfad5be2d6, type: 3}
   m_Name: 
@@ -273,6 +274,23 @@ MonoBehaviour:
   projectileSpawnPoint: {fileID: 3534388587230588691, guid: f9ed9ebfbffdcb14f8303bd5d3246a17, type: 3}
   shootWaitTime: 0.3
   isEnemy: 0
+--- !u!114 &912691578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1929996043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2017511b7320e6943998088584b38b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons:
+  - {fileID: 1929996047}
+  - {fileID: 1929996048}
+  - {fileID: 1929996049}
+  - {fileID: 1929996050}
 --- !u!1 &2084787480
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,6 +406,7 @@ GameObject:
   - component: {fileID: 763537880584136896}
   - component: {fileID: 763537880584136897}
   - component: {fileID: 1097295284}
+  - component: {fileID: 1293657005}
   m_Layer: 9
   m_Name: Player Ship
   m_TagString: Player
@@ -519,6 +538,19 @@ MonoBehaviour:
   playerMaxHealth: 100
   playerExplosionFX: {fileID: 1493211344075380, guid: d050d6f0895e64926bcad437c907f1a4, type: 3}
   playerDamageFX: {fileID: 1929564232946276, guid: ad5d54c9542814801ab5b2860b43e093, type: 3}
+--- !u!114 &1293657005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763537880584136925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffbbed72705873a4d85138aef6acd31b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponUpgrade: {fileID: 912691578}
 --- !u!1 &763537880622251640
 GameObject:
   m_ObjectHideFlags: 0

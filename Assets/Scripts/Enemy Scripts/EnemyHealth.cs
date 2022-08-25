@@ -20,6 +20,12 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField]
     GameObject hitEffect;
 
+    DropCollectable dropCollectable;
+
+    private void Awake()
+    {
+        dropCollectable=GetComponent<DropCollectable>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +45,7 @@ public class EnemyHealth : MonoBehaviour
         {
             Instantiate(destroyEffect, transform.position, Quaternion.identity);
             SoundManager.instance.PlayDestroySound();
+            dropCollectable.CheckToSpawnCollectable();
             Destroy(gameObject);
         }
         else
