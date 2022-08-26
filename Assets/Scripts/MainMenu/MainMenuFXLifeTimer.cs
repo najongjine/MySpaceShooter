@@ -5,21 +5,21 @@ using UnityEngine;
 public class MainMenuFXLifeTimer : MonoBehaviour
 {
     [SerializeField]
-    float timer = 5f;
-    // Start is called before the first frame update
-    void Start()
+    private float timer = 5f;
+
+    private void OnEnable()
     {
-        Invoke(nameof(DeactivateGameObject),5f);
+        Invoke("DeactivateGameObject", timer);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        CancelInvoke("DeactivateGameObject");
     }
+
     void DeactivateGameObject()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
 }

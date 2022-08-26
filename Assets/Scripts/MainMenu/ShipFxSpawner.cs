@@ -11,64 +11,103 @@ public enum SpawnPositionEnum
 }
 public class ShipFxSpawner : MonoBehaviour
 {
-    [SerializeField]
-    GameObject[] ships;
 
-    List<GameObject> spawnedShips = new List<GameObject>();
+    [SerializeField]
+    private GameObject[] ships;
+
+    private List<GameObject> spawnedShips = new List<GameObject>();
 
     public SpawnPositionEnum spawnPosEnum;
 
     [SerializeField]
-    float minSpawnTime = 5f, maxSpawnTime = 10f;
-    float spawnTimer;
-    bool shipSpawned;
-    Vector3 spawnPos;
+    private float minSpawnTime = 5f, maxSpawnTime = 10f;
+
+    private float spawnTimer;
+
+    private bool shipSpawned;
+
+    private Vector3 spawnPos;
 
     [SerializeField]
-    float minX=-50f, maxX=50f;
+    private float minX = -50f, maxX = 50f;
+
     [SerializeField]
-    float minY = -27f, maxY = 27f;
-    // Start is called before the first frame update
-    void Start()
+    private float minY = -27f, maxY = 27f;
+
+    private void Start()
     {
-        
+        spawnTimer = Time.time + Random.Range(1f, 2f);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (Time.time > spawnTimer)
+            SpawnShip();
     }
+
     void SpawnShip()
     {
+
         shipSpawned = false;
-        for (int i=0;i<spawnedShips.Count;i++)
+
+        for (int i = 0; i < spawnedShips.Count; i++)
         {
+
             if (!spawnedShips[i].activeInHierarchy)
             {
-                spawnedShips[i].SetActive(true);
+                ActivateShip(spawnedShips[i], false);
+                shipSpawned = true;
             }
-        }
-    }
-    void ActivateShip(GameObject ship)
-    {
-        ship.SetActive(true);
-        if (spawnPosEnum==SpawnPositionEnum.Up)
-        {
 
         }
+
+        if (!shipSpawned)
+        {
+            ActivateShip(Instantiate(ships[Random.Range(0, ships.Length)]), true);
+        }
+
+        spawnTimer = Time.time + Random.Range(minSpawnTime, maxSpawnTime);
+
+    }
+
+    void ActivateShip(GameObject ship, bool addToList)
+    {
+
+        ship.SetActive(true);
+        ship.transform.SetParent(transform);
+
+        if (spawnPosEnum == SpawnPositionEnum.Up)
+        {
+            spawnPos = new Vector3(Random.Range(minX, maxX), transform.position.y, 0f);
+            ship.transform.position = spawnPos;
+            ship.GetComponent<SpaceshipFXMovement>().SetMovement(true, false, true);
+        }
+
         else if (spawnPosEnum == SpawnPositionEnum.Down)
         {
-
+            spawnPos = new Vector3(Random.Range(minX, maxX), transform.position.y, 0f);
+            ship.transform.position = spawnPos;
+            ship.GetComponent<SpaceshipFXMovement>().SetMovement(true, false, false);
         }
+
         else if (spawnPosEnum == SpawnPositionEnum.Left)
         {
-
+            spawnPos = new Vector3(transform.position.x, Random.Range(minY, maxY), 0f);
+            ship.transform.position = spawnPos;
+            ship.GetComponent<SpaceshipFXMovement>().SetMovement(false, true, false);
         }
+
         else if (spawnPosEnum == SpawnPositionEnum.Right)
         {
-
+            spawnPos = new Vector3(transform.position.x, Random.Range(minY, maxY), 0f);
+            ship.transform.position = spawnPos;
+            ship.GetComponent<SpaceshipFXMovement>().SetMovement(false, true, true);
         }
+
+        if (addToList)
+            spawnedShips.Add(ship);
+
     }
+
 
 }

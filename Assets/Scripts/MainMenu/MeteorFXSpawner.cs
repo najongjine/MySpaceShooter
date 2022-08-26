@@ -5,49 +5,109 @@ using UnityEngine;
 public class MeteorFXSpawner : MonoBehaviour
 {
     [SerializeField]
-    GameObject[] meteors;
+    private GameObject[] meteors;
+
+    private List<GameObject> spawnedMeteors = new List<GameObject>();
 
     [SerializeField]
-    float minSpawnTime = 2f, maxSpawnTime = 5f;
+    private float minSpawnTime = 3f, maxSpawnTime = 7f;
 
-    float spawnTimer;
-    int spawnNum;
-
-    [SerializeField]
-    float minX, maxX;
-    Vector3 spawnPos;
+    private float spawnTimer;
 
     [SerializeField]
-    bool spawnUp;
+    private float minX, maxX;
 
-    // Start is called before the first frame update
-    void Start()
+    private Vector3 spawnPos;
+
+    private int spawnNum;
+    private int activatedMeteors;
+
+    [SerializeField]
+    private bool moveDown;
+
+    private void Start()
     {
+        spawnTimer = Time.time + Random.Range(1f, 2f);
+        SpawnInitialNumberOfMeteors(40);
+    }
+
+    private void Update()
+    {
+
+        //if (Time.time > spawnTimer)
+        //    SpawnMeteor();
+
+        if (Time.time > spawnTimer)
+            SpawnMeteorsFromPool();
+
+    }
+
+    void SpawnMeteor()
+    {
+
+        spawnNum = Random.Range(1, 6);
+
+        for (int i = 0; i < spawnNum; i++)
+        {
+
+            spawnPos = new Vector3(Random.Range(minX, maxX), transform.position.y, 0f);
+
+            GameObject newMeteor = Instantiate(meteors[Random.Range(0, meteors.Length)],
+                spawnPos, Quaternion.identity);
+
+            if (moveDown)
+                newMeteor.GetComponent<MeteorFXMovement>().moveDown = true;
+
+            newMeteor.transform.SetParent(transform);
+
+        }
+
         spawnTimer = Time.time + Random.Range(minSpawnTime, maxSpawnTime);
     }
 
-    // Update is called once per frame
-    void Update()
+    // from here POOLING
+
+    void SpawnInitialNumberOfMeteors(int spawnNum)
     {
-        if (Time.time > spawnTimer)
+        for (int i = 0; i < spawnNum; i++)
         {
-            SpawnMeteor();
+            GameObject newMeteor = Instantiate(meteors[Random.Range(0, meteors.Length)]);
+            newMeteor.transform.SetParent(transform);
+            newMeteor.SetActive(false);
+            spawnedMeteors.Add(newMeteor);
         }
     }
-    void SpawnMeteor()
+
+    void SpawnMeteorsFromPool()
     {
-        spawnNum = Random.Range(1,6);
-        
-        for(int i=0; i < spawnNum; i++)
+        spawnNum = Random.Range(1, 6);
+        activatedMeteors = 0;
+
+        for (int i = 0; i < spawnedMeteors.Count; i++)
         {
-            spawnPos = new Vector3(Random.Range(minX, maxX), transform.position.y, 0f);
-            var obj=Instantiate(meteors[Random.Range(0, meteors.Length)], spawnPos, Quaternion.identity);
-            if (spawnUp)
+
+            if (!spawnedMeteors[i].activeInHierarchy)
             {
-                obj.GetComponent<MeteorFXMovement>().moveUp = true;
+                spawnPos = new Vector3(Random.Range(minX, maxX), transform.position.y, 0f);
+
+                spawnedMeteors[i].SetActive(true);
+
+                spawnedMeteors[i].transform.position = spawnPos;
+
+                if (moveDown)
+                    spawnedMeteors[i].GetComponent<MeteorFXMovement>().moveDown = true;
+
+                activatedMeteors++;
+
+                if (activatedMeteors == spawnNum)
+                    break;
+
             }
-            
+
         }
-        spawnTimer= Time.time+Random.Range(minSpawnTime,maxSpawnTime);
+
+        spawnTimer = Time.time + Random.Range(minSpawnTime, maxSpawnTime);
+
     }
+
 }

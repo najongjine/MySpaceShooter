@@ -5,66 +5,73 @@ using UnityEngine;
 public class MeteorFXMovement : MonoBehaviour
 {
     [SerializeField]
-    float minSpeed = 5f, maxSpeed = 10f;
+    private float minSpeed = 5f, maxSpeed = 10f;
+
+    private float speedY, speedX;
+
     [SerializeField]
-    float minRotateSpeed = 10f, maxRotateSpeed = 20f;
+    private float minRotateSpeed = 8f, maxRotateSpeed = 20f;
 
-    float speedY,speedX;
+    private float rotationSpeed;
 
-    float rotationSpeed = 5f;
+    private float zRotation;
 
-    float zRotation;
+    private bool moveOnX;
 
-    bool moveOnX;
-
-    Vector3 tempPos;
+    private Vector3 tempPos;
 
     [HideInInspector]
-    public bool moveUp;
+    public bool moveDown;
 
     private void Awake()
     {
-        speedY=Random.Range(minSpeed,maxSpeed);
-        speedX=Random.Range(minSpeed,maxSpeed); 
-        if (Random.Range(0,2)>0)
-        {
-            moveOnX=true;
-        }
+        speedY = Random.Range(minSpeed, maxSpeed);
+        speedX = speedY;
+
         if (Random.Range(0, 2) > 0)
-        {
+            moveOnX = true;
+
+        if (Random.Range(0, 2) > 0)
             speedX *= -1f;
-        }
+
         rotationSpeed = Random.Range(minRotateSpeed, maxRotateSpeed);
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (moveUp)
-        {
-            speedY *= -1f;
-        }
+
+        if (Random.Range(0, 2) > 0)
+            rotationSpeed *= -1f;
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
+    {
+        if (moveDown)
+            speedY *= -1f;
+    }
+
+    private void Update()
     {
         HandleMovement();
+
         HandleRotation();
+
     }
+
     void HandleMovement()
     {
-        tempPos=transform.position; 
-        tempPos.y-=speedY*Time.deltaTime;
+
+        tempPos = transform.position;
+        tempPos.y += speedY * Time.deltaTime;
         transform.position = tempPos;
 
+        // if we don't move on x return
         if (!moveOnX)
-        {
             return;
-        }
+
         tempPos = transform.position;
         tempPos.x += speedX * Time.deltaTime;
         transform.position = tempPos;
+
     }
+
     void HandleRotation()
     {
         zRotation += rotationSpeed * Time.deltaTime;
