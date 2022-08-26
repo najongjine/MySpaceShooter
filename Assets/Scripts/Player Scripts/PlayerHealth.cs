@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -15,9 +16,15 @@ public class PlayerHealth : MonoBehaviour
     GameObject playerDamageFX;
 
     Collectable collectable;
+
+    Slider playerHealthSlider;
     private void Awake()
     {
+        playerHealthSlider=GameObject.FindGameObjectWithTag(TagManager.PLAYER_HEALTH_SLIDER_TAG).GetComponent<Slider>();
         playerHealth = playerMaxHealth;
+        playerHealthSlider.minValue = 0;
+        playerHealthSlider.maxValue = playerMaxHealth;
+        playerHealthSlider.value = playerHealth;
     }
     // Start is called before the first frame update
     void Start()
@@ -38,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
             playerHealth = 0;
             Instantiate(playerExplosionFX,transform.position,Quaternion.identity);
             SoundManager.instance.PlayDestroySound();
+            GameOverUIController.instance.OpenGameOverPanel();
             Destroy(gameObject);
         }
         else
@@ -45,6 +53,7 @@ public class PlayerHealth : MonoBehaviour
             Instantiate(playerDamageFX, transform.position, Quaternion.identity);
             SoundManager.instance.PlayDamageSound();
         }
+        playerHealthSlider.value = playerHealth;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -58,6 +67,7 @@ public class PlayerHealth : MonoBehaviour
                 {
                     playerHealth=playerMaxHealth;
                 }
+                playerHealthSlider.value = playerHealth;
                 Destroy(collectable.gameObject);
             }
         }

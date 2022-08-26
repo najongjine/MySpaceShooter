@@ -49,5 +49,35 @@ public class GameplayUIController : MonoBehaviour
         meteorDestroyedCount++;
         meteorsDestroyedInfoTxt.text = $"{meteorDestroyedCount} x ";
     }
+    public int GetShipsDestroyedCount()
+    {
+        return shipsDestroyedCount;
+    }
+    public int GetMeteorsDestroyedCount()
+    {
+        return meteorDestroyedCount;
+    }
+    public int GetWaveCount()
+    {
+        return waveCount;
+    }
+    public void SetInfo(int infoType)
+    {
+        switch (infoType)
+        {
+            case 1:
+                waveCount++;
+                waveInfoTxt.text = $"Wave : {waveCount}";
+                break;
+            case 2:
+                shipsDestroyedCount++;
+                shipsDestroyedInfoTxt.text = $"{shipsDestroyedCount} x ";
+                break;
+            case 3:
+                meteorDestroyedCount++;
+                meteorsDestroyedInfoTxt.text = $"{meteorDestroyedCount} x ";
+                break;
+        }
+    }
 
 }
